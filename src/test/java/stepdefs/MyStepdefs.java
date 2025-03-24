@@ -133,10 +133,12 @@ public class MyStepdefs {
                     By.xpath("//*[contains(text(), 'THANK YOU FOR CREATING AN ACCOUNT')]")));
             assertTrue(confirmationMessage.isDisplayed(), "Account creation confirmation message not displayed!"); // JUnit assert
         } else if (accountStatus.equals("not be created")) {
-            assertTrue(driver.getCurrentUrl().contains("NewSupporterAccount"),
+            String currentUrl = (driver != null) ? driver.getCurrentUrl() : "";
+            assertTrue(currentUrl != null && currentUrl.contains("NewSupporterAccount"),
                     "Unexpected navigation, the account should not have been created!"); // JUnit assert
         }
     }
+
 
     @After
     public void tearDown() { // Stänger webbläsaren efter varje test
