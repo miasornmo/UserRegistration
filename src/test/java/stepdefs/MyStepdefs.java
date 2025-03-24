@@ -70,7 +70,7 @@ public class MyStepdefs {
         enterUserDetails(fieldStatus);
     }
 
-    @And("I confirm acceptance of the terms and conditions if {string}") // Om användaren accepterar terms and conditions
+    @And("I confirm acceptance of the terms and conditions: {string}") // Om användaren accepterar terms and conditions
     public void iConfirmAcceptanceOfTheTermsAndConditionsIf(String acceptTerms) {
         if (acceptTerms.equals("yes")) {
             WebElement termsLabel = driver.findElement(By.cssSelector("label[for='sign_up_25']"));
