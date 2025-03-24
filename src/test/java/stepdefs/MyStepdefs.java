@@ -103,32 +103,26 @@ public class MyStepdefs {
     }
 
     private WebElement waitForMessage(String messageType) { // Privat metod med explicit wait som väntar på att ett specifikt meddelande ska visas
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // Explicit wait
-        WebElement messageElement = null;
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         switch (messageType) {
             case "success":
-                messageElement = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                return wait.until(ExpectedConditions.visibilityOfElementLocated(
                         By.xpath("//*[contains(text(), 'THANK YOU FOR CREATING AN ACCOUNT')]")));
-                break;
             case "missing last name":
-                messageElement = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                return wait.until(ExpectedConditions.visibilityOfElementLocated(
                         By.cssSelector("span.warning.field-validation-error[data-valmsg-for='Surname']")));
-                break;
             case "mismatched passwords":
-                messageElement = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                return wait.until(ExpectedConditions.visibilityOfElementLocated(
                         By.cssSelector("span[data-valmsg-for='ConfirmPassword'] span")));
-                break;
             case "missing terms and conditions":
-                messageElement = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                return wait.until(ExpectedConditions.visibilityOfElementLocated(
                         By.cssSelector("span.warning.field-validation-error[data-valmsg-for='TermsAccept']")));
-                break;
             default:
-                messageElement = null;
-                break;
+                throw new IllegalArgumentException("Unknown message type: " + messageType);
         }
-        return messageElement;
     }
+
 
     @And("the account should {string}") // Verifierar om kontot skapades eller inte
     public void theAccountShould(String accountStatus) {
